@@ -1,0 +1,57 @@
+static int dissect_pvfs2_response ( tvbuff_t * tvb , proto_tree * tree , int offset , packet_info * pinfo , guint32 server_op ) {
+ offset = dissect_pvfs2_error ( tvb , tree , offset , pinfo ) ;
+ switch ( server_op ) {
+ case PVFS_SERV_CREATE : offset = dissect_pvfs2_create_response ( tvb , tree , offset , pinfo ) ;
+ break ;
+ # if 0 case PVFS_SERV_REMOVE : break ;
+ # endif case PVFS_SERV_IO : offset = dissect_pvfs2_io_response ( tvb , tree , offset ) ;
+ break ;
+ case PVFS_SERV_GETATTR : offset = dissect_pvfs2_getattr_response ( tvb , tree , offset , pinfo ) ;
+ break ;
+ case PVFS_SERV_SETATTR : break ;
+ case PVFS_SERV_LOOKUP_PATH : offset = dissect_pvfs2_lookup_path_response ( tvb , tree , offset , pinfo ) ;
+ break ;
+ # if 0 case PVFS_SERV_CRDIRENT : break ;
+ # endif case PVFS_SERV_RMDIRENT : offset = dissect_pvfs2_rmdirent_response ( tvb , tree , offset , pinfo ) ;
+ break ;
+ case PVFS_SERV_CHDIRENT : offset = dissect_pvfs2_chdirent_response ( tvb , tree , offset , pinfo ) ;
+ break ;
+ # if 0 case PVFS_SERV_TRUNCATE : break ;
+ # endif case PVFS_SERV_MKDIR : offset = dissect_pvfs2_mkdir_response ( tvb , tree , offset , pinfo ) ;
+ break ;
+ case PVFS_SERV_READDIR : offset = dissect_pvfs2_readdir_response ( tvb , tree , offset , pinfo ) ;
+ break ;
+ case PVFS_SERV_GETCONFIG : offset = dissect_pvfs2_getconfig_response ( tvb , tree , offset , pinfo ) ;
+ break ;
+ case PVFS_SERV_WRITE_COMPLETION : offset = dissect_pvfs2_write_completion_response ( tvb , tree , offset ) ;
+ break ;
+ # if 0 case PVFS_SERV_FLUSH : break ;
+ # endif case PVFS_SERV_MGMT_SETPARAM : offset = dissect_pvfs2_mgmt_setparam_response ( tvb , tree , offset ) ;
+ break ;
+ # if 0 case PVFS_SERV_MGMT_NOOP : break ;
+ # endif case PVFS_SERV_STATFS : offset = dissect_pvfs2_statfs_response ( tvb , tree , offset ) ;
+ break ;
+ # if 0 case PVFS_SERV_PERF_UPDATE : break ;
+ # endif case PVFS_SERV_MGMT_PERF_MON : offset = dissect_pvfs2_mgmt_perf_mon_response ( tvb , tree , offset ) ;
+ break ;
+ case PVFS_SERV_MGMT_ITERATE_HANDLES : offset = dissect_pvfs2_mgmt_iterate_handles_response ( tvb , tree , offset , pinfo ) ;
+ break ;
+ case PVFS_SERV_MGMT_DSPACE_INFO_LIST : offset = dissect_pvfs2_mgmt_dspace_info_list_response ( tvb , tree , offset , pinfo ) ;
+ break ;
+ case PVFS_SERV_MGMT_EVENT_MON : offset = dissect_pvfs2_mgmt_event_mon_response ( tvb , tree , offset ) ;
+ break ;
+ case PVFS_SERV_MGMT_REMOVE_OBJECT : offset = dissect_pvfs2_mgmt_remove_object_response ( tvb , tree , offset , pinfo ) ;
+ break ;
+ # if 0 case PVFS_SERV_MGMT_REMOVE_DIRENT : break ;
+ # endif case PVFS_SERV_MGMT_GET_DIRDATA_HANDLE : offset = dissect_pvfs2_mgmt_get_dirdata_handle_response ( tvb , tree , offset , pinfo ) ;
+ break ;
+ # if 0 case PVFS_SERV_JOB_TIMER : break ;
+ # endif case PVFS_SERV_PROTO_ERROR : break ;
+ case PVFS_SERV_GETEATTR : offset = dissect_pvfs2_geteattr_response ( tvb , tree , offset , pinfo ) ;
+ break ;
+ # if 0 case PVFS_SERV_SETEATTR : break ;
+ # endif # if 0 case PVFS_SERV_DELEATTR : break ;
+ # endif default : break ;
+ }
+ return offset ;
+ }
